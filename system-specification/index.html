@@ -1,0 +1,1793 @@
+
+<!doctype html>
+<html lang="ja" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="生成AIサービス「AIパーソナル秘書」のシステム・API・技術ドキュメント">
+      
+      
+      
+        <link rel="canonical" href="https://tomonori-ryo.github.io/ai-assistant-app/system-specification/">
+      
+      
+        <link rel="prev" href="..">
+      
+      
+        <link rel="next" href="../api-specification/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.22">
+    
+    
+      
+        <title>システム仕様 - AIパーソナル秘書ドキュメント</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.84d31ad4.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#aiai" class="md-skip">
+          コンテンツにスキップ
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="ヘッダー">
+    <a href=".." title="AIパーソナル秘書ドキュメント" class="md-header__button md-logo" aria-label="AIパーソナル秘書ドキュメント" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            AIパーソナル秘書ドキュメント
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              システム仕様
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="検索" placeholder="検索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="検索">
+        
+        <button type="reset" class="md-search__icon md-icon" title="クリア" aria-label="クリア" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            検索を初期化
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/tomonori-ryo/ai-assistant-app" title="リポジトリへ" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    tomonori-ryo/ai-assistant-app
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="タブ" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href=".." class="md-tabs__link">
+        
+  
+  
+    
+  
+  ホーム
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="./" class="md-tabs__link">
+        
+  
+  
+    
+  
+  システム仕様
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../api-specification/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  API仕様
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../technical-architecture/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  技術アーキテクチャ
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../user-manual/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  ユーザーマニュアル
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="ナビゲーション" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="AIパーソナル秘書ドキュメント" class="md-nav__button md-logo" aria-label="AIパーソナル秘書ドキュメント" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    AIパーソナル秘書ドキュメント
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/tomonori-ryo/ai-assistant-app" title="リポジトリへ" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    tomonori-ryo/ai-assistant-app
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ホーム
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    システム仕様
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    システム仕様
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目次">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目次
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. 概要
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. 概要">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.1. システム名
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.2. コンセプト
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.3. ターゲットユーザー
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.4. 解決する課題
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. 機能要件
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. 機能要件">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-uiux" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1. ユーザーインターフェース (UI/UX)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.1. ユーザーインターフェース (UI/UX)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      メイン画面（ダッシュボード）
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      入力フロー
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      確認・手動操作フロー
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-ai-powered-input" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.2. 入力機能 (AI-Powered Input)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.2. 入力機能 (AI-Powered Input)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      自然言語入力
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ocr" class="md-nav__link">
+    <span class="md-ellipsis">
+      画像入力 (OCR)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ai" class="md-nav__link">
+    <span class="md-ellipsis">
+      AIによる詳細ヒアリング
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      チャットベースの修正
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.3. 予定・タスク管理
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.3. 予定・タスク管理">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ai_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      AIによる自動ジャンル分け
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ai_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      AIによるタスク細分化
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      優先順位の自動表示
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24-ai" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.4. AI秘書（提案）機能
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.4. AI秘書（提案）機能">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      重複・競合の警告
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      隙間時間の活用提案
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      動的リスケジュール
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#25-ai" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.5. 通知機能（AI集中モード）
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.5. 通知機能（AI集中モード）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#on" class="md-nav__link">
+    <span class="md-ellipsis">
+      集中ON（静音）
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#off" class="md-nav__link">
+    <span class="md-ellipsis">
+      集中OFF（通知・ハプティクス）
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#26" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.6. 振り返り機能（コーチング）
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.6. 振り返り機能（コーチング）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      内容
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-ai" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. AIロジック詳細
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. AIロジック詳細">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.1. タスク優先順位ロジック (スコアリング)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.1. タスク優先順位ロジック (スコアリング)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      スコアリング要素
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.2. 「ぼんやりタスク」の処理フロー
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.2. 「ぼんやりタスク」の処理フロー">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      処理ステップ
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      例外処理
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. 技術仕様
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. 技術仕様">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.1. アーキテクチャ概要
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.2. セキュリティ要件
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.3. パフォーマンス要件
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. 実装計画
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. 実装計画">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-1mvp-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.1. フェーズ1（MVP - 3ヶ月）
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-2-6" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.2. フェーズ2（拡張機能 - 6ヶ月）
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-3-9" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.3. フェーズ3（最適化 - 9ヶ月）
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. 付録
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. 付録">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.1. 用語集
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.2. 関連文書
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api-specification/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    API仕様
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../technical-architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    技術アーキテクチャ
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-manual/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ユーザーマニュアル
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目次">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目次
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. 概要
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. 概要">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.1. システム名
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.2. コンセプト
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.3. ターゲットユーザー
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.4. 解決する課題
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. 機能要件
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. 機能要件">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-uiux" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1. ユーザーインターフェース (UI/UX)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.1. ユーザーインターフェース (UI/UX)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      メイン画面（ダッシュボード）
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      入力フロー
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      確認・手動操作フロー
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-ai-powered-input" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.2. 入力機能 (AI-Powered Input)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.2. 入力機能 (AI-Powered Input)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      自然言語入力
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ocr" class="md-nav__link">
+    <span class="md-ellipsis">
+      画像入力 (OCR)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ai" class="md-nav__link">
+    <span class="md-ellipsis">
+      AIによる詳細ヒアリング
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      チャットベースの修正
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.3. 予定・タスク管理
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.3. 予定・タスク管理">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ai_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      AIによる自動ジャンル分け
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ai_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      AIによるタスク細分化
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      優先順位の自動表示
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24-ai" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.4. AI秘書（提案）機能
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.4. AI秘書（提案）機能">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      重複・競合の警告
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      隙間時間の活用提案
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      動的リスケジュール
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#25-ai" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.5. 通知機能（AI集中モード）
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.5. 通知機能（AI集中モード）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#on" class="md-nav__link">
+    <span class="md-ellipsis">
+      集中ON（静音）
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#off" class="md-nav__link">
+    <span class="md-ellipsis">
+      集中OFF（通知・ハプティクス）
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#26" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.6. 振り返り機能（コーチング）
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.6. 振り返り機能（コーチング）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      内容
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-ai" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. AIロジック詳細
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. AIロジック詳細">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.1. タスク優先順位ロジック (スコアリング)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.1. タスク優先順位ロジック (スコアリング)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      スコアリング要素
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.2. 「ぼんやりタスク」の処理フロー
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.2. 「ぼんやりタスク」の処理フロー">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      処理ステップ
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      例外処理
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. 技術仕様
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. 技術仕様">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.1. アーキテクチャ概要
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.2. セキュリティ要件
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.3. パフォーマンス要件
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. 実装計画
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. 実装計画">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-1mvp-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.1. フェーズ1（MVP - 3ヶ月）
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-2-6" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.2. フェーズ2（拡張機能 - 6ヶ月）
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-3-9" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.3. フェーズ3（最適化 - 9ヶ月）
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. 付録
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. 付録">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.1. 用語集
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.2. 関連文書
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="aiai">新規生成AIサービス「（仮）AIパーソナル秘書」システム仕様書<a class="headerlink" href="#aiai" title="Permanent link">&para;</a></h1>
+<p><strong>バージョン:</strong> 1.0<br />
+<strong>作成日:</strong> 2025年10月29日<br />
+<strong>作成者:</strong> Gemini  </p>
+<hr />
+<h2 id="1">1. 概要<a class="headerlink" href="#1" title="Permanent link">&para;</a></h2>
+<h3 id="11">1.1. システム名<a class="headerlink" href="#11" title="Permanent link">&para;</a></h3>
+<p>（仮）AIパーソナル秘書</p>
+<h3 id="12">1.2. コンセプト<a class="headerlink" href="#12" title="Permanent link">&para;</a></h3>
+<p>「入力の手間をゼロにする」AI入力と、「ユーザーの目標達成を先回りする」動的なスケジュール提案を融合させた、対話型のパーソナルAI秘書サービス。</p>
+<h3 id="13">1.3. ターゲットユーザー<a class="headerlink" href="#13" title="Permanent link">&para;</a></h3>
+<ul>
+<li>複数のタスクや予定を抱え、管理に追われているビジネスパーソンや学生</li>
+<li>既存のカレンダーやTodoアプリへの「入力自体が面倒」で継続できない人</li>
+<li>「次に何をすべきか」の判断に迷い、締め切りギリギリになりがちな人</li>
+</ul>
+<h3 id="14">1.4. 解決する課題<a class="headerlink" href="#14" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>入力の障壁:</strong> 写真や自然言語（チャット）で入力できるため、従来の手動入力の面倒さを解消する</li>
+<li><strong>タスクの埋没:</strong> 緊急度は低いが重要なタスク（例：資格勉強）が、日々の雑務に埋もれてしまうのを防ぐ</li>
+<li><strong>計画倒れ:</strong> 予定が変更された際（早く終わる、遅れる）に、リアルタイムで残りのスケジュールを最適化する</li>
+<li><strong>隙間時間の浪費:</strong> 「暇な時間」をAIが能動的に発見し、実行すべきタスクを提案することで時間を有効活用する</li>
+</ul>
+<hr />
+<h2 id="2">2. 機能要件<a class="headerlink" href="#2" title="Permanent link">&para;</a></h2>
+<h3 id="21-uiux">2.1. ユーザーインターフェース (UI/UX)<a class="headerlink" href="#21-uiux" title="Permanent link">&para;</a></h3>
+<h4 id="_1">メイン画面（ダッシュボード）<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong><code>[上部]</code></strong> AIチャット入力欄（クイック入力）</li>
+<li><strong><code>[中段]</code></strong> 「今日のタスク」ウィジェット（優先度順）</li>
+<li><strong><code>[下段]</code></strong> 「ミニカレンダー」ウィジェット（操作可能）</li>
+</ul>
+<h4 id="_2">入力フロー<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h4>
+<ol>
+<li>ユーザーがメイン画面のチャット欄に一言（例：「25日 歯医者」）入力する</li>
+<li>即座に全画面の「AIチャットモード」に遷移する</li>
+</ol>
+<h4 id="_3">確認・手動操作フロー<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h4>
+<ul>
+<li>メイン画面の「ミニカレンダー」は手動操作に対応する</li>
+<li>対面での予定調整時など、チャットが不向きな場面での使用を想定</li>
+<li>日付タップで、該当日の「やることリスト」と「優先順位」が確認できる</li>
+</ul>
+<h3 id="22-ai-powered-input">2.2. 入力機能 (AI-Powered Input)<a class="headerlink" href="#22-ai-powered-input" title="Permanent link">&para;</a></h3>
+<h4 id="_4">自然言語入力<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h4>
+<ul>
+<li>「明日19時からAさんと飲み会」「バイト 24日 9時からに変更」といった曖昧な指示をAIが解釈し、カレンダーに登録・変更する</li>
+</ul>
+<h4 id="ocr">画像入力 (OCR)<a class="headerlink" href="#ocr" title="Permanent link">&para;</a></h4>
+<ul>
+<li>スマートフォンのカメラで撮影した「シフト表」や「時間割」の画像をAIが解析（OCR）し、予定を自動で一括登録する</li>
+</ul>
+<h4 id="ai">AIによる詳細ヒアリング<a class="headerlink" href="#ai" title="Permanent link">&para;</a></h4>
+<ul>
+<li>入力情報が不足している場合（例：「歯医者」のみ）、AIがチャットモードで「何時ですか？」「場所はどこですか？」と自然言語でヒアリングし、情報を補完する</li>
+</ul>
+<h4 id="_5">チャットベースの修正<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h4>
+<ul>
+<li>AIが登録情報を間違えた場合（例：「13時ですね」）、ユーザーはチャットで「違う、15時です」と返信するだけで、AIが該当の予定を自動修正する</li>
+</ul>
+<h3 id="23">2.3. 予定・タスク管理<a class="headerlink" href="#23" title="Permanent link">&para;</a></h3>
+<h4 id="ai_1">AIによる自動ジャンル分け<a class="headerlink" href="#ai_1" title="Permanent link">&para;</a></h4>
+<p>予定・タスクの内容をAIが分析し、以下のジャンルに自動分類する。カレンダー上で色分け表示する。</p>
+<ul>
+<li><strong>仕事・勉強:</strong> スキルアップ系（集中モードON）</li>
+<li><strong>生活・雑務:</strong> 歯医者、掃除、役所など（集中モードOFF）</li>
+<li><strong>余暇:</strong> 遊び、趣味など（集中モードOFF）</li>
+</ul>
+<h4 id="ai_2">AIによるタスク細分化<a class="headerlink" href="#ai_2" title="Permanent link">&para;</a></h4>
+<ul>
+<li>ユーザーが「企画書作成」のような大きなタスクを登録した際、AIが瞬時に「市場調査」「競合分析」「構成案作成」といったサブタスクを提案し、自動生成する</li>
+</ul>
+<h4 id="_6">優先順位の自動表示<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h4>
+<ul>
+<li>「今日のタスク」ウィジェットは、後述する「3.1. AI優先順位ロジック」に基づき、常に最適化された優先度順で表示される</li>
+</ul>
+<h3 id="24-ai">2.4. AI秘書（提案）機能<a class="headerlink" href="#24-ai" title="Permanent link">&para;</a></h3>
+<h4 id="_7">重複・競合の警告<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h4>
+<ul>
+<li>新規予定が既存の予定と重複する場合、登録時に即座に警告し、リスケジュールを提案する</li>
+</ul>
+<h4 id="_8">隙間時間の活用提案<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h4>
+<ul>
+<li>AIがカレンダーを常時監視し、「意味のある空き時間（例：60分以上）」を発見する</li>
+<li>その時間が近づくと、優先度の高い未完了タスク（例：「来週の企画書作成に着手しませんか？」）を提案する</li>
+</ul>
+<h4 id="_9">動的リスケジュール<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h4>
+<ul>
+<li>ユーザーがチャットで「タスクAが思ったより早く終わった」「予定Bが30分短縮になった」と報告する</li>
+<li>AIは即座に「承知しました。30分の余裕ができましたね。明日のタスクCを今から始めますか？」と、残りのスケジュール全体を再構築・提案する</li>
+</ul>
+<h3 id="25-ai">2.5. 通知機能（AI集中モード）<a class="headerlink" href="#25-ai" title="Permanent link">&para;</a></h3>
+<p>AIは予定の「ジャンル」に基づき、プッシュ通知の挙動を自動制御する。</p>
+<h4 id="on">集中ON（静音）<a class="headerlink" href="#on" title="Permanent link">&para;</a></h4>
+<ul>
+<li>「仕事」「勉強」「講義」など、集中が必要な予定時間中</li>
+<li>AIからの提案通知はプッシュせず、アプリ内の通知ログにのみ記録する</li>
+</ul>
+<h4 id="off">集中OFF（通知・ハプティクス）<a class="headerlink" href="#off" title="Permanent link">&para;</a></h4>
+<ul>
+<li>「プライベート」な予定中や、「隙間時間」</li>
+<li>タスクの提案などをプッシュ通知とハプティクスで積極的に行う</li>
+</ul>
+<h3 id="26">2.6. 振り返り機能（コーチング）<a class="headerlink" href="#26" title="Permanent link">&para;</a></h3>
+<p>1日の終わり（ユーザー設定時間）に、AIがチャットで1日の振り返りを促す。</p>
+<h4 id="_10">内容<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h4>
+<ol>
+<li><strong>承認:</strong> 「本日は〇件のタスクを完了しましたね。お疲れ様です！」</li>
+<li><strong>確認:</strong> 「『タスクX』が未完了です。明日に持ち越しますか？」</li>
+<li><strong>準備:</strong> 「明日は重要な『〇〇（予定）』があります。準備資料は揃っていますか？」</li>
+</ol>
+<hr />
+<h2 id="3-ai">3. AIロジック詳細<a class="headerlink" href="#3-ai" title="Permanent link">&para;</a></h2>
+<h3 id="31">3.1. タスク優先順位ロジック (スコアリング)<a class="headerlink" href="#31" title="Permanent link">&para;</a></h3>
+<p>AIはタスク登録・更新時に、以下の4要素を分析して内部的な「優先度スコア」を算出し、行動（提案・表示順）を決定する。</p>
+<h4 id="_11">スコアリング要素<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h4>
+<ol>
+<li><strong>緊急度 (Deadline):</strong></li>
+<li>
+<p>締め切りが近いほど高スコア（例：今日締切 +10点）</p>
+</li>
+<li>
+<p><strong>重要度 (Importance):</strong></p>
+</li>
+<li>「2.3. ジャンル分け」に基づきスコアを付与</li>
+<li><code>[高]</code> 仕事・勉強 (+7点)</li>
+<li><code>[中]</code> 生活・雑務 (+3点)</li>
+<li>
+<p><code>[低]</code> 余暇 (+0点)</p>
+</li>
+<li>
+<p><strong>所要時間 (Effort):</strong></p>
+</li>
+<li>AIがタスク名から想定される所要時間を推測</li>
+<li>
+<p>「企画書作成」「資格勉強」など時間がかかるタスクは高スコア (+5点)</p>
+</li>
+<li>
+<p><strong>明確さ (Clarity):</strong></p>
+</li>
+<li>「ぼんやりしたタスク」はスコアを減点するのではなく、「3.2. 処理フロー」に基づきAIが介入する</li>
+</ol>
+<h3 id="32">3.2. 「ぼんやりタスク」の処理フロー<a class="headerlink" href="#32" title="Permanent link">&para;</a></h3>
+<p>「ぼんやりしたタスク」（例：「部屋の掃除」「公園でサッカー」）が入力された場合、AIは優先度を下げて放置するのではなく、即座にチャットで介入し「明確化」を図る。</p>
+<h4 id="_12">処理ステップ<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h4>
+<ol>
+<li><strong>入力:</strong> ユーザーが「部屋の掃除がしたい」と入力</li>
+<li><strong>AI検知:</strong> AIが「重要度：中（生活・雑務）」かつ「期限が不明確」と判断</li>
+<li><strong>AI介入（チャット):</strong></li>
+<li>「『部屋の掃除』ですね。これは<strong>いつまでに終わらせるタスク</strong>にしましょうか？ それとも、今日の<strong>空き時間に予定として確保</strong>しますか？」</li>
+<li><strong>明確化:</strong> ユーザーが「今週末までに」と応答</li>
+<li><strong>登録:</strong> AIは「部屋の掃除（期限：今週末）」という<strong>明確なタスク</strong>として登録し、優先度スコアを算出する</li>
+</ol>
+<h4 id="_13">例外処理<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h4>
+<p>「公園でサッカーしたい」の場合、AIは「重要度：低（余暇）」と判断し、「『いつかやるリスト』に追加しますか？」と提案し、緊急タスクリストを汚さないようにする</p>
+<hr />
+<h2 id="4">4. 技術仕様<a class="headerlink" href="#4" title="Permanent link">&para;</a></h2>
+<h3 id="41">4.1. アーキテクチャ概要<a class="headerlink" href="#41" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>フロントエンド:</strong> React Native / Flutter（モバイルアプリ）</li>
+<li><strong>バックエンド:</strong> Node.js / Python（FastAPI）</li>
+<li><strong>データベース:</strong> PostgreSQL + Redis（キャッシュ）</li>
+<li><strong>AI エンジン:</strong> OpenAI GPT-4 / Claude API</li>
+<li><strong>OCR:</strong> Google Cloud Vision API / Azure Computer Vision</li>
+<li><strong>通知:</strong> Firebase Cloud Messaging</li>
+</ul>
+<h3 id="42">4.2. セキュリティ要件<a class="headerlink" href="#42" title="Permanent link">&para;</a></h3>
+<ul>
+<li>ユーザーデータの暗号化（AES-256）</li>
+<li>OAuth 2.0 による認証</li>
+<li>HTTPS 通信の強制</li>
+<li>データの地域的保管（GDPR対応）</li>
+</ul>
+<h3 id="43">4.3. パフォーマンス要件<a class="headerlink" href="#43" title="Permanent link">&para;</a></h3>
+<ul>
+<li>レスポンス時間: 2秒以内</li>
+<li>可用性: 99.9%以上</li>
+<li>同時接続数: 10,000ユーザー</li>
+</ul>
+<hr />
+<h2 id="5">5. 実装計画<a class="headerlink" href="#5" title="Permanent link">&para;</a></h2>
+<h3 id="51-1mvp-3">5.1. フェーズ1（MVP - 3ヶ月）<a class="headerlink" href="#51-1mvp-3" title="Permanent link">&para;</a></h3>
+<ul>
+<li>基本的なチャット入力とタスク管理</li>
+<li>簡易AIスケジュール提案</li>
+<li>モバイルアプリ（iOS/Android）のリリース</li>
+</ul>
+<h3 id="52-2-6">5.2. フェーズ2（拡張機能 - 6ヶ月）<a class="headerlink" href="#52-2-6" title="Permanent link">&para;</a></h3>
+<ul>
+<li>OCR機能の実装</li>
+<li>高度なAI優先順位ロジック</li>
+<li>Web版のリリース</li>
+</ul>
+<h3 id="53-3-9">5.3. フェーズ3（最適化 - 9ヶ月）<a class="headerlink" href="#53-3-9" title="Permanent link">&para;</a></h3>
+<ul>
+<li>機械学習によるパーソナライゼーション</li>
+<li>他のカレンダーアプリとの連携</li>
+<li>エンタープライズ版の開発</li>
+</ul>
+<hr />
+<h2 id="6">6. 付録<a class="headerlink" href="#6" title="Permanent link">&para;</a></h2>
+<h3 id="61">6.1. 用語集<a class="headerlink" href="#61" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>AI秘書:</strong> システムの核となるAI機能</li>
+<li><strong>ぼんやりタスク:</strong> 期限や詳細が不明確なタスク</li>
+<li><strong>集中モード:</strong> 通知を制御する機能</li>
+</ul>
+<h3 id="62">6.2. 関連文書<a class="headerlink" href="#62" title="Permanent link">&para;</a></h3>
+<ul>
+<li>API仕様書</li>
+<li>技術設計書</li>
+<li>ユーザーマニュアル</li>
+<li>テスト仕様書</li>
+</ul>
+<hr />
+<p><strong>文書作成日:</strong> 2025年10月29日<br />
+<strong>次回更新予定:</strong> 2025年11月29日</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "..", "features": ["navigation.tabs", "navigation.sections", "navigation.expand", "content.code.copy", "toc.follow"], "search": "../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "\u30b3\u30d4\u30fc\u3057\u307e\u3057\u305f", "clipboard.copy": "\u30af\u30ea\u30c3\u30d7\u30dc\u30fc\u30c9\u3078\u30b3\u30d4\u30fc", "search.result.more.one": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3082\u30461\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.more.other": "\u3053\u306e\u30da\u30fc\u30b8\u5185\u306b\u3042\u3068#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.none": "\u4f55\u3082\u898b\u3064\u304b\u308a\u307e\u305b\u3093\u3067\u3057\u305f", "search.result.one": "1\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.other": "#\u4ef6\u898b\u3064\u304b\u308a\u307e\u3057\u305f", "search.result.placeholder": "\u691c\u7d22\u30ad\u30fc\u30ef\u30fc\u30c9\u3092\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044", "search.result.term.missing": "\u691c\u7d22\u306b\u542b\u307e\u308c\u306a\u3044", "select.version": "\u30d0\u30fc\u30b8\u30e7\u30f3\u5207\u308a\u66ff\u3048"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+    
+  </body>
+</html>
