@@ -1,0 +1,38 @@
+# AIパーソナル秘書システム開発環境
+# MarkItDownライブラリとドキュメント生成ツール
+
+# MarkItDown - Microsoft製のファイル変換ライブラリ
+markitdown>=0.1.0
+
+# ドキュメント生成・変換関連
+markdown>=3.5.0
+pdfkit>=1.0.0
+weasyprint>=60.0
+pypandoc>=1.11
+
+# API開発用（FastAPI）
+fastapi>=0.104.0
+uvicorn>=0.24.0
+pydantic>=2.5.0
+
+# データベース関連
+psycopg2-binary>=2.9.0
+redis>=5.0.0
+
+# AI・ML関連
+openai>=1.0.0
+anthropic>=0.7.0
+python-dotenv>=1.0.0
+
+# 画像処理・OCR
+pillow>=10.1.0
+pytesseract>=0.3.10
+
+# ユーティリティ
+requests>=2.31.0
+python-dateutil>=2.8.0
+pytz>=2023.3
+
+# ドキュメントサイト生成
+mkdocs>=1.6.0
+mkdocs-material>=9.5.0

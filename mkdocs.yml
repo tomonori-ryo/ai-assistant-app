@@ -1,0 +1,36 @@
+site_name: AIパーソナル秘書ドキュメント
+site_description: 生成AIサービス「AIパーソナル秘書」のシステム・API・技術ドキュメント
+site_url: https://tomonori-ryo.github.io/ai-assistant-app/
+repo_url: https://github.com/tomonori-ryo/ai-assistant-app
+repo_name: tomonori-ryo/ai-assistant-app
+
+theme:
+  name: material
+  language: ja
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
+    - content.code.copy
+    - toc.follow
+  palette:
+    - scheme: default
+      primary: indigo
+      accent: indigo
+
+nav:
+  - ホーム: index.md
+  - システム仕様: system-specification.md
+  - API仕様: api-specification.md
+  - 技術アーキテクチャ: technical-architecture.md
+  - ユーザーマニュアル: user-manual.md
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - md_in_html
+  - toc:
+      permalink: true
+
