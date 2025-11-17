@@ -1,2 +1,28 @@
 # Local Netlify folder
 .netlify
+
+# Local env files
+/web/.env.local
+/admin/.env.local
+
+# Node modules
+node_modules/
+web/node_modules/
+admin/node_modules/
+
+# Next.js build outputs
+.next/
+web/.next/
+admin/.next/
+out/
+web/out/
+admin/out/
+
+# Vercel
+.vercel/
+web/.vercel/
+admin/.vercel/
+
+# Google service account credentials (DO NOT COMMIT)
+ai-assistant-app-476709-8d79ce93158f.json
+*.keys.json
