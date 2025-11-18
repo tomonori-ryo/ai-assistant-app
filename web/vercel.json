@@ -1,7 +1,7 @@
 {
-  "buildCommand": "cd web && npm install && npm run build",
-  "installCommand": "cd web && npm install",
-  "outputDirectory": "web/.next",
+  "buildCommand": "npm install && npm run build",
+  "installCommand": "npm install",
+  "outputDirectory": ".next",
   "crons": [
     {
       "path": "/api/cron/train-models",
