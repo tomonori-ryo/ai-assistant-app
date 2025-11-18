@@ -1794,7 +1794,7 @@ ${schoolFormData.timings?.map(t => `${t.period}限: ${t.start}-${t.end}`).join('
   };
 
   // ローディング状態の判定
-  const showLoadingPlaceholder = loading && events === null && loadingStep === null;
+  const showLoadingPlaceholder: boolean = Boolean(loading && events === null && loadingStep === null);
 
   return (
     <div className="container">
