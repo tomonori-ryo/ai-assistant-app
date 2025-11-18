@@ -1,7 +1,7 @@
 {
-  "buildCommand": "npm install && npm run build",
-  "installCommand": "npm install",
-  "outputDirectory": ".next",
+  "buildCommand": "cd admin && npm install && npm run build",
+  "installCommand": "cd admin && npm install",
+  "outputDirectory": "admin/.next",
   "framework": "nextjs",
   "rewrites": [
     {
