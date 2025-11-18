@@ -28,21 +28,41 @@ vercel --token Te9y58LcTUvIOaskmv9Vi8YZ --prod --yes
 
 ## プロジェクト設定
 
-### ルートディレクトリの設定
+### ルートディレクトリの設定（Vercel CLIを使用）
 
-Vercelダッシュボードで、各プロジェクトのルートディレクトリを設定してください：
+Vercelダッシュボードで「Root Directory」が見つからない場合は、Vercel CLIを使用して設定してください：
 
-1. **AIMOアプリ（web/）**:
-   - https://vercel.com/tomos-projects-375194bf/web/settings/general にアクセス
-   - 「Root Directory」セクションで「Edit」をクリック
-   - 「Root Directory」に `web` を入力
-   - 「Save」をクリック
+#### AIMOアプリ（web/）
 
-2. **管理サイト（admin/）**:
-   - https://vercel.com/tomos-projects-375194bf/admin/settings/general にアクセス
-   - 「Root Directory」セクションで「Edit」をクリック
-   - 「Root Directory」に `admin` を入力
-   - 「Save」をクリック
+```bash
+cd /Users/tomonoriryo/Desktop/assistant/web
+vercel link --token Te9y58LcTUvIOaskmv9Vi8YZ
+# プロンプトが表示されたら：
+# - Set up and deploy? → Y
+# - Which scope? → tomos-projects-375194bf
+# - Link to existing project? → Y
+# - What's the name of your existing project? → web
+# - In which directory is your code located? → ./
+```
+
+#### 管理サイト（admin/）
+
+```bash
+cd /Users/tomonoriryo/Desktop/assistant/admin
+vercel link --token Te9y58LcTUvIOaskmv9Vi8YZ
+# プロンプトが表示されたら：
+# - Set up and deploy? → Y
+# - Which scope? → tomos-projects-375194bf
+# - Link to existing project? → Y
+# - What's the name of your existing project? → admin
+# - In which directory is your code located? → ./
+```
+
+**または、プロジェクトを再作成する方法：**
+
+1. Vercelダッシュボードで既存のプロジェクトを削除
+2. GitHubリポジトリを再度インポート
+3. インポート時に「Root Directory」に `web` または `admin` を指定
 
 **重要**: ルートディレクトリを設定しないと、Vercelが`package.json`を見つけられず、ビルドが失敗します。
 
