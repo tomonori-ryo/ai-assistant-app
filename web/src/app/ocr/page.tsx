@@ -1793,6 +1793,9 @@ ${schoolFormData.timings?.map(t => `${t.period}限: ${t.start}-${t.end}`).join('
     other: 'その他'
   };
 
+  // ローディング状態の判定
+  const showLoadingPlaceholder = loading && events === null && loadingStep === null;
+
   return (
     <div className="container">
       <h2 style={{ marginBottom: 16 }}>OCRで予定を一括登録</h2>
@@ -2053,7 +2056,7 @@ ${schoolFormData.timings?.map(t => `${t.period}限: ${t.start}-${t.end}`).join('
         </div>
       )}
 
-      {error && (
+      {error ? (
         <div className="card" style={{ 
           background: '#fee2e2', 
           borderColor: '#b91c1c', 
@@ -2109,10 +2112,10 @@ ${schoolFormData.timings?.map(t => `${t.period}限: ${t.start}-${t.end}`).join('
             </div>
           </div>
         </div>
-      )}
+      ) : null}
 
       {/* 段階的ローディングUI */}
-      {loadingStep ? (
+      {loadingStep !== null ? (
         <div className="card" style={{ 
           marginBottom: 24, 
           background: '#eff6ff', 
@@ -2167,13 +2170,13 @@ ${schoolFormData.timings?.map(t => `${t.period}限: ${t.start}-${t.end}`).join('
         </div>
       ) : null}
 
-      {loading && events === null && !loadingStep && (
+      {showLoadingPlaceholder ? (
         <div style={{ display: 'grid', gap: 16 }}>
           {[1, 2, 3].map((i: number) => (
             <div key={i} className="card" style={{ height: 120, background: '#f3f4f6', borderColor: '#e5e7eb' }} />
           ))}
         </div>
-      )}
+      ) : null}
 
       {events !== null && events.length === 0 ? (
         <div className="card" style={{ textAlign: 'center', padding: 48, color: 'var(--muted)' }}>
