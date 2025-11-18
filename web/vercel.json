@@ -1,0 +1,12 @@
+{
+  "buildCommand": "npm install && npm run build",
+  "installCommand": "npm install",
+  "outputDirectory": ".next",
+  "crons": [
+    {
+      "path": "/api/cron/train-models",
+      "schedule": "0 2 * * *"
+    }
+  ]
+}
+
