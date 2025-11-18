@@ -2167,13 +2167,13 @@ ${schoolFormData.timings?.map(t => `${t.period}限: ${t.start}-${t.end}`).join('
         </div>
       ) : null}
 
-      {loading && events === null && !loadingStep ? (
+      {loading && events === null && !loadingStep && (
         <div style={{ display: 'grid', gap: 16 }}>
           {[1, 2, 3].map((i: number) => (
             <div key={i} className="card" style={{ height: 120, background: '#f3f4f6', borderColor: '#e5e7eb' }} />
           ))}
         </div>
-      ) : null}
+      )}
 
       {events !== null && events.length === 0 ? (
         <div className="card" style={{ textAlign: 'center', padding: 48, color: 'var(--muted)' }}>
