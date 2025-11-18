@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState, useMemo, useRef } from 'react';
-import { addEventsBulk, type FirestoreEvent, getUserSettings, getEvents, deleteEvent, updateUserSettings, type WorkplaceProfile, type SchoolProfile } from "../../lib/firestore";
+import { addEventsBulk, type FirestoreEvent, getUserSettings, getEvents, deleteEvent, updateUserSettings, type WorkplaceProfile, type SchoolProfile, type VacationPeriod } from "../../lib/firestore";
 import { calculateSalary } from "../../lib/salaryCalculator";
 import { format, parseISO } from 'date-fns';
 import { ja } from 'date-fns/locale/ja';
@@ -213,7 +213,7 @@ export default function OCRPage() {
         return null;
       };
       
-      const vacations = [
+      const vacations: Array<{ name: string; start: string; end: string }> = [
         parseVacation(schoolFormData.summerVacation, '08', '夏休み'),
         parseVacation(schoolFormData.winterVacation, '12', '冬休み'),
         parseVacation(schoolFormData.springVacation, '03', '春休み')
@@ -353,10 +353,13 @@ export default function OCRPage() {
         
         if (classesForDay.length === 0) continue;
         
-        const timingsForDay = classesForDay.map(cls => {
-          const timing = school.timings?.find((t: any) => t.period === cls.period);
-          return timing ? { ...timing, subject: cls.subject, location: cls.location } : null;
-        }).filter(Boolean);
+        const timingsForDay = classesForDay
+          .map((cls: any) => {
+            const timing = school.timings?.find((t: any) => t.period === cls.period);
+            if (!timing) return null;
+            return { ...timing, subject: cls.subject, location: cls.location } as { start: string; end: string; period: number; subject: string; location?: string };
+          })
+          .filter((v: any): v is { start: string; end: string; period: number; subject: string; location?: string } => v !== null);
         
         if (timingsForDay.length === 0) continue;
         
@@ -369,7 +372,7 @@ export default function OCRPage() {
         const startTimeISO = new Date(startTimeStr).toISOString();
         const endTimeISO = new Date(endTimeStr).toISOString();
         
-        const classDetails = classesForDay.map(cls => 
+        const classDetails = classesForDay.map((cls: any) => 
           `${cls.period}限: ${cls.subject}${cls.location ? ` (${cls.location})` : ''}`
         ).join('\n');
         
@@ -642,10 +645,11 @@ ${schoolFormData.timings?.map(t => `${t.period}限: ${t.start}-${t.end}`).join('
             if (classesForDay.length === 0) continue;
             
             // その日の全授業を1つのイベントにまとめる
-            const timingsForDay = classesForDay.map(cls => {
+            const timingsForDay = classesForDay.map((cls: any) => {
               const timing = school.timings?.find((t: any) => t.period === cls.period);
-              return timing ? { ...timing, subject: cls.subject, location: cls.location } : null;
-            }).filter(Boolean);
+              if (!timing) return null;
+              return { ...timing, subject: cls.subject, location: cls.location } as { start: string; end: string; period: number; subject: string; location?: string };
+            }).filter((v: any): v is { start: string; end: string; period: number; subject: string; location?: string } => v !== null);
             
             if (timingsForDay.length === 0) {
               console.warn('[OCR Page] Form submit - No timings found for', dateStr);
@@ -672,7 +676,7 @@ ${schoolFormData.timings?.map(t => `${t.period}限: ${t.start}-${t.end}`).join('
             }
             
             // 全授業の詳細を説明文に含める
-            const classDetails = classesForDay.map(cls => 
+            const classDetails = classesForDay.map((cls: any) => 
               `${cls.period}限: ${cls.subject}${cls.location ? ` (${cls.location})` : ''}`
             ).join('\n');
             
@@ -1090,10 +1094,11 @@ ${schoolFormData.timings?.map(t => `${t.period}限: ${t.start}-${t.end}`).join('
               }
               
               // その日の全授業を1つのイベントにまとめる
-              const timingsForDay = classesForDay.map(cls => {
+              const timingsForDay = classesForDay.map((cls: any) => {
                 const timing = school.timings?.find((t: any) => t.period === cls.period);
-                return timing ? { ...timing, subject: cls.subject, location: cls.location } : null;
-              }).filter(Boolean);
+                if (!timing) return null;
+                return { ...timing, subject: cls.subject, location: cls.location } as { start: string; end: string; period: number; subject: string; location?: string };
+              }).filter((v: any): v is { start: string; end: string; period: number; subject: string; location?: string } => v !== null);
               
               if (timingsForDay.length === 0) {
                 console.warn('[OCR Page] No timings found for', dateStr);
@@ -1120,7 +1125,7 @@ ${schoolFormData.timings?.map(t => `${t.period}限: ${t.start}-${t.end}`).join('
               }
               
               // 全授業の詳細を説明文に含める
-              const classDetails = classesForDay.map(cls => 
+              const classDetails = classesForDay.map((cls: any) => 
                 `${cls.period}限: ${cls.subject}${cls.location ? ` (${cls.location})` : ''}`
               ).join('\n');
               
@@ -2107,7 +2112,7 @@ ${schoolFormData.timings?.map(t => `${t.period}限: ${t.start}-${t.end}`).join('
       )}
 
       {/* 段階的ローディングUI */}
-      {loadingStep && (
+      {loadingStep ? (
         <div className="card" style={{ 
           marginBottom: 24, 
           background: '#eff6ff', 
@@ -2160,22 +2165,22 @@ ${schoolFormData.timings?.map(t => `${t.period}限: ${t.start}-${t.end}`).join('
             </div>
           )}
         </div>
-      )}
+      ) : null}
 
-      {loading && events === null && !loadingStep && (
+      {loading && events === null && !loadingStep ? (
         <div style={{ display: 'grid', gap: 16 }}>
-          {[1, 2, 3].map((i) => (
+          {[1, 2, 3].map((i: number) => (
             <div key={i} className="card" style={{ height: 120, background: '#f3f4f6', borderColor: '#e5e7eb' }} />
           ))}
         </div>
-      )}
+      ) : null}
 
-      {events && events.length === 0 && (
+      {events !== null && events.length === 0 ? (
         <div className="card" style={{ textAlign: 'center', padding: 48, color: 'var(--muted)' }}>
           <IconDocument />
           <div style={{ marginTop: 12 }}>抽出結果がありません</div>
         </div>
-      )}
+      ) : null}
 
       {askWorkplaceName && events && events.length > 0 && mode === 'shift' && (
         <div className="card" style={{ marginBottom: 24, background: '#eff6ff', borderColor: '#3b82f6' }}>
